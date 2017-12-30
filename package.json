@@ -1,0 +1,16 @@
+{
+  "name": "abdul",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Abdulazeez Abdulazeez Adeshina <laisibizness@gmail.com> (http://twitter.com/kvng_zeez)",
+  "license": "ISC",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.7"
+  }
+}
