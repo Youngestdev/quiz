@@ -1,16 +1,29 @@
 {
-  "name": "abdul",
+  "name": "quiz",
   "version": "1.0.0",
-  "description": "",
+  "description": "simple quiz app",
   "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Youngestdev/quiz.git"
+  },
+  "keywords": [],
   "author": "Abdulazeez Abdulazeez Adeshina <laisibizness@gmail.com> (http://twitter.com/kvng_zeez)",
   "license": "ISC",
-  "scripts": {
-    "start": "node index.js"
+  "bugs": {
+    "url": "https://github.com/Youngestdev/quiz/issues"
   },
+  "homepage": "https://github.com/Youngestdev/quiz#readme",
   "dependencies": {
     "bcrypt": "^1.0.3",
+    "connect-mongo": "^2.0.0",
     "express": "^4.16.2",
-    "mongoose": "^4.13.7"
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.0.0-rc0",
+    "nodemon": "^1.14.7"
   }
 }
