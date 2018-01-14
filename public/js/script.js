@@ -13,10 +13,3 @@ document.getElementById("start").addEventListener("click", destroy);
     function show() {
         document.getElementById("show").style.display = "block";
     }
-
-// function hide(e) {
-//     e.target.style.visibility = 'hidden';
-// }
-
-// const mystuff = document.getElementById("q1");
-// mystuff.addEventListener('click', hide, false);
