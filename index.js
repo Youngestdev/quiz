@@ -1,52 +1,48 @@
 const express = require('express');
 const exphbs  = require('express-handlebars');
-
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const session = require('express-session');
+// const MongoStore = require('connect-mongo');
+const MongoStore = require('connect-mongo')(session);
 const app = express();
 
 app.use(express.static(__dirname + '/public'));
 
+mongoose.connect('mongodb://localhost/abdul', {
+  useMongoClient: true
+});
+const db = mongoose.connection;
+
+//handle mongo error
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  // we're connected!
+});
+
+//use sessions for tracking logins
+app.use(session({
+  secret: 'work hard',
+  resave: true,
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongooseConnection: db
+  })
+}));
+
+// parse incoming requests
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+
+const routes = require('./routes/router');
+
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-app.get('/', (req, res) => {
-    res.render('home');
-});
+app.use('/', routes);
 
-app.listen((3000), () => {
-    console.log('App started on port 3000');
-});
+app.listen(3000, function () {
+    console.log('Express app listening on port 3000');
+  });
 
-app.post('/start', (req, res) => {
-    res.render('start');
-});
-
-app.get('/login', (req, res) => {
-        res.render('login');
-
-});
-
-app.get('/register', (req, res) => {
-    res.render('register');
-});
-
-app.post('/score', (req, res) => {
-    res.render('score');
-});
-
-app.use('/profile', (req, res) => {
-    res.render('profile')
-});
-
-app.post('/confirm', (req, res) => {
-    res.render('confirm');
-});
-
-app.post('/dashboard', (req, res) => {
-    res.render('dashboard');
-});
-
-app.use((req, res) => {
-    res.status(404);
-    res.render('404');
-    // res.redirect('main');
-});
