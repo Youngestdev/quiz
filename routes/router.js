@@ -58,7 +58,8 @@ router.get('/profile', function (req, res, next) {
         if (user === null) {
           const err = new Error('Not authorized! Go back!');
           err.status = 400;
-          return res.render('login');
+          next(err);
+          // return res.render('login');
         } else {
           return res.send(`
           <title>My profile</title>
@@ -130,7 +131,7 @@ router.post('/score', (req, res) => {
     res.render('score', { title: 'Your Score'});
 }); 
 router.use('/profile', (req, res) => {
-        res.render('profile', {title: 'My Profile'});
+        // res.render('profile', {title: 'My Profile'});
 //     if (req.body.email && req.body.password) {
 //     User.authenticate(req.body.email, req.body.password, function (error, user) {
 //       if (error || !user) {
