@@ -1,3 +1,4 @@
+// Reequire mongoose and bcrypt for connection and encryption.
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
@@ -18,11 +19,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   }
-    // },
-  // passwordConf: {
-  //   type: String,
-  //   required: true
-  // }
 });
 
 //authenticate input against database
@@ -56,14 +52,6 @@ UserSchema.pre('save', function (next) {
     user.password = hash;
     next();
   })
-
-  // bcrypt.hash(user.passwordConf, 10, function (err, hash) {
-  //   if (err) {
-  //     return next(err);
-  //   }
-  //   user.passwordConf = hash;
-  //   next();
-  // })
 });
 
 

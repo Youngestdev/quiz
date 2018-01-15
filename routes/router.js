@@ -66,9 +66,30 @@ router.get('/profile', function (req, res, next) {
         if (user === null) {
           const err = new Error('Not authorized! Go back!');
           err.status = 400;
-          return res.render('404');
+          return res.render('login');
         } else {
           return res.send('<link rel="shortcut icon" href="/images/favico.ico" /><link rel="stylesheet" href="/css/paper.css" /><div class="paper container"><nav align="right"><a type="button" href="/logout" class="paper-btn">Logout</a></nav><h4>My Details</h4><b><strong>Name: </strong>' + user.username + ' <br /><br /><strong> E-Mail: </strong>' + user.email + '<br /><br /></b><align>Score : </align> ' + user.score + ' <hr><p> Want to take my simple test ? Click the button below to begin !</p><form action="start" method="POST"><button type="submit">Start</button></form></div>')
+        }
+      }
+    });
+});
+
+
+// GET route for user who wants to visit the start page.
+
+router.get('/start', function (req, res, next) {
+  User.findById(req.session.userId)
+    .exec(function (error, user) {
+      if (error) {
+        return next(error);
+      } else {
+        if (user === null) {
+          const err = new Error('Not authorized! Go back!');
+          err.status = 400;
+          return res.render('login');
+        } else {
+            res.render('start', { title: 'Start Quiz' });
+          // return res.send('<link rel="shortcut icon" href="/images/favico.ico" /><link rel="stylesheet" href="/css/paper.css" /><div class="paper container"><nav align="right"><a type="button" href="/logout" class="paper-btn">Logout</a></nav><h4>My Details</h4><b><strong>Name: </strong>' + user.username + ' <br /><br /><strong> E-Mail: </strong>' + user.email + '<br /><br /></b><align>Score : </align> ' + user.score + ' <hr><p> Want to take my simple test ? Click the button below to begin !</p><form action="start" method="POST"><button type="submit">Start</button></form></div>')
         }
       }
     });

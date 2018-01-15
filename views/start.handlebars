@@ -1,10 +1,11 @@
+<title>{{ title }}</title>
 <h2>Welcome to the quiz</h2>
 <p>This is a quiz about me. It has just 10 questions.</p>
 <h6 id="test">To start the quiz, click the button below</h6>
 <p class="paper-btn" title="Start" id="start">Start</button>
 
 <div style="display: none" id="show">
-<form action="/score" method="post">
+<form action="/score" method="post" id="quiz">
     <b>Instructions :</b>
     <p>1. Do Not Refresh the page</p>
     <p>2.Select only <b>1</b> box, selection of two or more will result in the loss of mark of the particular question.</p>
@@ -14,10 +15,10 @@
         <b>Who am i ?</b>
         <ul id="q1">
             <li>
-                <input type="checkbox" name="jimoh" />Abdul
-                <input type="checkbox" name="abdul" />Tawa
-                <input type="checkbox" name="tawa" />Safu
-                <input type="checkbox" name="safu" />Sule
+                <input type="checkbox" name="answer[1][]" />Abdul
+                <input type="checkbox" name="answer[1][]" />Tawa
+                <input type="checkbox" name="answer[1][]" />Safu
+                <input type="checkbox" name="answer[1][]" />Sule
             </li>
         </ul>
 
@@ -25,10 +26,10 @@
             <b>How old am i ?
                 <ul id="q2">
                     <li>
-                        <input type="checkbox" name="10" />10
-                        <input type="checkbox" name="20" />20
-                        <input type="checkbox" name="15" />15
-                        <input type="checkbox" name="19" />19
+                        <input type="checkbox" name="answer[2][]" />10
+                        <input type="checkbox" name="answer[2][]" />20
+                        <input type="checkbox" name="answer[2][]" />15
+                        <input type="checkbox" name="answer[2][]" />19
                     </li>
                 </ul>
             </b>
@@ -37,10 +38,10 @@
             <b>How many sisters do i have ?
                 <ul id="q3">
                     <li>
-                        <input type="checkbox" name="6" />6
-                        <input type="checkbox" name="8" />8
-                        <input type="checkbox" name="2" />2
-                        <input type="checkbox" name="3" />3
+                        <input type="checkbox" name="answer[3][]" />6
+                        <input type="checkbox" name="answer[3][]" />8
+                        <input type="checkbox" name="answer[3][]" />2
+                        <input type="checkbox" name="answer[3][]" />3
                     </li>
                 </ul>
             </b>
@@ -49,10 +50,10 @@
             <b>What's my hobby ?
                 <ul id="q4">
                     <li>
-                        <input type="checkbox" name="Eating" />Eating
-                        <input type="checkbox" name="Programming" />Programming
-                        <input type="checkbox" name="Sleeping" />Sleeping
-                        <input type="checkbox" name="Writing" />Writing
+                        <input type="checkbox" name="answer[4][]" />Eating
+                        <input type="checkbox" name="answer[4][]" />Programming
+                        <input type="checkbox" name="answer[4][]" />Sleeping
+                        <input type="checkbox" name="answer[4][]" />Writing
                     </li>
                 </ul>
             </b>
@@ -61,10 +62,10 @@
             <b>What's my favorite text editor ?
                 <ul id="q5">
                     <li>
-                        <input type="checkbox" name="vscode" />Visual Studio Code
-                        <input type="checkbox" name="sublime" />Sublime
-                        <input type="checkbox" name="wordpad" />Wordpad
-                        <input type="checkbox" name="notepad" />Notepad
+                        <input type="checkbox" name="answer[5][]" />Visual Studio Code
+                        <input type="checkbox" name="answer[5][]" />Sublime
+                        <input type="checkbox" name="answer[5][]" />Wordpad
+                        <input type="checkbox" name="answer[5][]" />Notepad
                     </li>
                 </ul>
             </b>
@@ -73,10 +74,10 @@
             <b>What is my favorite programming language ?
                 <ul id="q6">
                     <li>
-                        <input type="checkbox" name="cpp" />C++
-                        <input type="checkbox" name="c#" />C#
-                        <input type="checkbox" name="php" />Php
-                        <input type="checkbox" name="javascript" />JavaScript
+                        <input type="checkbox" name="answer[6][]" />C++
+                        <input type="checkbox" name="answer[6][]" />C#
+                        <input type="checkbox" name="answer[6][]" />Php
+                        <input type="checkbox" name="answer[6][]" />JavaScript
                     </li>
                 </ul>
             </b>
@@ -85,10 +86,10 @@
             <b>What was the first Unique programming language i learnt ?
                 <ul id="q7">
                     <li>
-                        <input type="checkbox" name="java" />Java
-                        <input type="checkbox" name="c++" />C++
-                        <input type="checkbox" name="ruby" />Ruby
-                        <input type="checkbox" name="python" />Python
+                        <input type="checkbox" name="answer[7][]" />Java
+                        <input type="checkbox" name="answer[7][]" />C++
+                        <input type="checkbox" name="answer[7][]" />Ruby
+                        <input type="checkbox" name="answer[7][]" />Python
                     </li>
                 </ul>
             </b>
@@ -97,10 +98,10 @@
             <b>What is my favorite framework ?
                 <ul id="q8">
                     <li>
-                        <input type="checkbox" name="express" />ExpressJS
-                        <input type="checkbox" name="none" />None
-                        <input type="checkbox" name="nodeJs" />AdonisJs
-                        <input type="checkbox" name="lang" />Hapi
+                        <input type="checkbox" name="answer[8][]" />ExpressJS
+                        <input type="checkbox" name="answer[8][]" />None
+                        <input type="checkbox" name="answer[8][]" />AdonisJs
+                        <input type="checkbox" name="answer[8][]" />Hapi
                     </li>
                 </ul>
             </b>
@@ -109,10 +110,10 @@
             <b>I am a _______ guy .
                 <ul id="q9">
                     <li>
-                        <input type="checkbox" name="cool" />Cool
-                        <input type="checkbox" name="gentle" />Gentle
-                        <input type="checkbox" name="stubborn" />Stubborn
-                        <input type="checkbox" name="problematic" />Problematic
+                        <input type="checkbox" name="answer[9][]" />Cool
+                        <input type="checkbox" name="answer[9][]" />Gentle
+                        <input type="checkbox" name="answer[9][]" />Stubborn
+                        <input type="checkbox" name="answer[9][]" />Problematic
                     </li>
                 </ul>
             </b>
@@ -121,10 +122,10 @@
             <b>Rate my app over 10.
                 <ul id="q10">
                     <li>
-                        <input type="checkbox" name="1" />1
-                        <input type="checkbox" name="5" />5
-                        <input type="checkbox" name="9" />9
-                        <input type="checkbox" name="10" />10
+                        <input type="checkbox" name="answer[10][]" />1
+                        <input type="checkbox" name="answer[10][]" />5
+                        <input type="checkbox" name="answer[10][]" />9
+                        <input type="checkbox" name="answer[10][]" />10
                     </li>
                 </ul>
             </b>
