@@ -1,3 +1,2 @@
-# quiz
-simple quiz app 
-STill under construction.
+# Quiz
+A simple webapp ongoing development.
