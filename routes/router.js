@@ -1,24 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
-//  import  body  from './body';
 
-// GET route for reading data
+// GET route for home page
+
 router.get('/', function (req, res, next) {
   res.render('home', { title: 'Home '});
 });
 
 
-//POST route for updating data
+//POST route for logging in..
 router.post('/profile', function (req, res, next) {
-  // confirm that user typed same password twice
-  // if (req.body.password !== req.body.passwordConf) {
-  //   const err = new Error('Passwords do not match.');
-  //   err.status = 400;
-  //   res.send("passwords dont match");
-  //   return next(err);
-  // }
-
   if (req.body.email &&
     req.body.username &&
     req.body.password) {
@@ -68,7 +60,18 @@ router.get('/profile', function (req, res, next) {
           err.status = 400;
           return res.render('login');
         } else {
-          return res.send('<link rel="shortcut icon" href="/images/favico.ico" /><link rel="stylesheet" href="/css/paper.css" /><div class="paper container"><nav align="right"><a type="button" href="/logout" class="paper-btn">Logout</a></nav><h4>My Details</h4><b><strong>Name: </strong>' + user.username + ' <br /><br /><strong> E-Mail: </strong>' + user.email + '<br /><br /></b><align>Score : </align> ' + user.score + ' <hr><p> Want to take my simple test ? Click the button below to begin !</p><form action="start" method="POST"><button type="submit">Start</button></form></div>')
+          return res.send(`
+          <title>My profile</title>
+          <link rel="shortcut icon" href="/images/favico.ico" />
+          <link rel="stylesheet" href="/css/paper.css" />
+          <div class="paper container">
+              <nav align="right"><a type="button" href="/logout" class="paper-btn">Logout</a></nav>
+              <h4>My Details</h4><b><strong style="font-family: Operator Mono">Name: </strong>` + user.username +  `<br /><br /><strong style="font-family: Operator Mono"> E-Mail: </strong>` + user.email + `<br /><br /></b>
+              <align style="font-family: Operator Mono">Score : </align> ' + user.score + '
+              <hr>
+              <p> Want to take my simple test ? Click the button below to begin !</p>
+              <form action="start" method="POST"><button type="submit">Start</button></form>
+          </div>`);
         }
       }
     });
@@ -89,7 +92,6 @@ router.get('/start', function (req, res, next) {
           return res.render('login');
         } else {
             res.render('start', { title: 'Start Quiz' });
-          // return res.send('<link rel="shortcut icon" href="/images/favico.ico" /><link rel="stylesheet" href="/css/paper.css" /><div class="paper container"><nav align="right"><a type="button" href="/logout" class="paper-btn">Logout</a></nav><h4>My Details</h4><b><strong>Name: </strong>' + user.username + ' <br /><br /><strong> E-Mail: </strong>' + user.email + '<br /><br /></b><align>Score : </align> ' + user.score + ' <hr><p> Want to take my simple test ? Click the button below to begin !</p><form action="start" method="POST"><button type="submit">Start</button></form></div>')
         }
       }
     });
@@ -109,7 +111,7 @@ router.get('/logout', function (req, res, next) {
   }
 });
 
-
+// Routes declaration.. 
 
 router.post('/start', (req, res) => {
     res.render('start', { title: 'Start Quiz'});
@@ -126,9 +128,9 @@ router.get('/register', (req, res) => {
 
 router.post('/score', (req, res) => {
     res.render('score', { title: 'Your Score'});
-});
-
+}); 
 router.use('/profile', (req, res) => {
+        res.render('profile', {title: 'My Profile'});
 //     if (req.body.email && req.body.password) {
 //     User.authenticate(req.body.email, req.body.password, function (error, user) {
 //       if (error || !user) {
@@ -142,7 +144,7 @@ router.use('/profile', (req, res) => {
 //     });
 //   }
     // res.send('<link rel="stylesheet" href="/css/paper.css" /><div class="container paper"><h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a></div>')
-});
+  });
 
 router.post('/confirm', (req, res) => {
     res.render('confirm', { title: 'Confirm your account.'});
