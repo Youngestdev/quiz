@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+// create a new Schema and add the following inheritants.
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -32,6 +33,7 @@ UserSchema.statics.authenticate = function (email, password, callback) {
         err.status = 401;
         return callback(err);
       }
+      // checking passwords to see if they match.
       bcrypt.compare(password, user.password, function (err, result) {
         if (result === true) {
           return callback(null, user);
@@ -56,4 +58,5 @@ UserSchema.pre('save', function (next) {
 
 
 const User = mongoose.model('User', UserSchema);
+// to the moon !
 module.exports = User;

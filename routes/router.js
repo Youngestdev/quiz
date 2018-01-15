@@ -1,3 +1,4 @@
+// require core modules required for routing and database interactions.
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
@@ -9,7 +10,7 @@ router.get('/', function (req, res, next) {
 });
 
 
-//POST route for logging in..
+//POST route for user registration and  logging in..
 router.post('/profile', function (req, res, next) {
   if (req.body.email &&
     req.body.username &&
@@ -21,6 +22,7 @@ router.post('/profile', function (req, res, next) {
       password: req.body.password
     }
 
+    // create user from passed data.
     User.create(userData, function (error, user) {
       if (error) {
         return next(error);
@@ -30,6 +32,7 @@ router.post('/profile', function (req, res, next) {
       }
     });
 
+    // if its a login request , then take him to his profile page
   } else if (req.body.email && req.body.password) {
     User.authenticate(req.body.email, req.body.password, function (error, user) {
       if (error || !user) {
@@ -37,21 +40,25 @@ router.post('/profile', function (req, res, next) {
         err.status = 401;
         return next(err);
       } else {
+        // otherwise if the user is logged in and wants to visit his profile page directly from url argument .
         req.session.userId = user._id;
         return res.redirect('/profile');
       }
     });
   } else {
+    // if user ongoing registration us leaving some fields empty send the warning !
     const err = new Error('All fields required.');
     err.status = 400;
     return next(err);
   }
 })
 
-// GET route after registering
+// GET route for profile page
 router.get('/profile', function (req, res, next) {
+// check if the user is logged in by checking session id.
   User.findById(req.session.userId)
     .exec(function (error, user) {
+// if he is not. execute !
       if (error) {
         return next(error);
       } else {
@@ -61,6 +68,7 @@ router.get('/profile', function (req, res, next) {
           next(err);
           // return res.render('login');
         } else {
+          // if he is the send him to his profile page !
           return res.send(`
           <title>My profile</title>
           <link rel="shortcut icon" href="/images/favico.ico" />
@@ -98,7 +106,7 @@ router.get('/start', function (req, res, next) {
     });
 });
 
-// GET for logout logout
+// GET for logout
 router.get('/logout', function (req, res, next) {
   if (req.session) {
     // delete session object
@@ -131,20 +139,6 @@ router.post('/score', (req, res) => {
     res.render('score', { title: 'Your Score'});
 }); 
 router.use('/profile', (req, res) => {
-        // res.render('profile', {title: 'My Profile'});
-//     if (req.body.email && req.body.password) {
-//     User.authenticate(req.body.email, req.body.password, function (error, user) {
-//       if (error || !user) {
-//         const err = new Error('Wrong email or password.');
-//         err.status = 401;
-//         return next(err);
-//       } else {
-//         req.session.userId = user._id;
-//         return res.redirect('/profile');
-//       }
-//     });
-//   }
-    // res.send('<link rel="stylesheet" href="/css/paper.css" /><div class="container paper"><h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a></div>')
   });
 
 router.post('/confirm', (req, res) => {
@@ -158,8 +152,7 @@ router.post('/dashboard', (req, res) => {
 router.use((req, res) => {
     res.status(404);
     res.render('404');
-    // res.redirect('main');
 });
 
-
+// Let's begin !!
 module.exports = router;
