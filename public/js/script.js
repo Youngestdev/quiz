@@ -10,7 +10,6 @@ $("input:checkbox").on('click', function() {
     }
   });
   
-
   // Handles the feri-feri for the start application
 document.getElementById("start").addEventListener("click", destroy);
     function destroy(){
