@@ -1,14 +1,17 @@
 // require core modules required for routing and database interactions.
 const express = require('express');
+const bodyParser = require('body-parser');
 const router = express.Router();
 const User = require('../models/user');
 
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
+
 // GET route for home page
 
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
   res.render('home', { title: 'Home '});
 });
-
 
 //POST route for user registration and  logging in..
 router.post('/profile', function (req, res, next) {
@@ -28,7 +31,18 @@ router.post('/profile', function (req, res, next) {
         return next(error);
       } else {
         req.session.userId = user._id;
-        return res.redirect('/profile');
+        return res.send(`
+        <title>My profile</title>
+        <link rel="shortcut icon" href="/images/favico.ico" />
+        <link rel="stylesheet" href="/css/paper.css" />
+        <div class="paper container">
+            <nav align="right"><a type="button" href="/logout" class="paper-btn">Logout</a></nav>
+            <h4>My Details</h4><b><strong style="font-family: Operator Mono">Name: </strong>` + user.username +  `<br /><br /><strong style="font-family: Operator Mono"> E-Mail: </strong>` + user.email + `<br /><br /></b>
+            <align style="font-family: Operator Mono">Score : </align> ' + user.score + '
+            <hr>
+            <p> Want to take my simple test ? Click the button below to begin !</p>
+            <form action="start" method="POST"><button type="submit">Start</button></form>
+        </div>`);
       }
     });
 
@@ -42,7 +56,18 @@ router.post('/profile', function (req, res, next) {
       } else {
         // otherwise if the user is logged in and wants to visit his profile page directly from url argument .
         req.session.userId = user._id;
-        return res.redirect('/profile');
+        return res.send(`
+        <title>My profile</title>
+        <link rel="shortcut icon" href="/images/favico.ico" />
+        <link rel="stylesheet" href="/css/paper.css" />
+        <div class="paper container">
+            <nav align="right"><a type="button" href="/logout" class="paper-btn">Logout</a></nav>
+            <h4>My Details</h4><b><strong style="font-family: Operator Mono">Name: </strong>` + user.username +  `<br /><br /><strong style="font-family: Operator Mono"> E-Mail: </strong>` + user.email + `<br /><br /></b>
+            <align style="font-family: Operator Mono">Score : </align> ' + user.score + '
+            <hr>
+            <p> Want to take my simple test ? Click the button below to begin !</p>
+            <form action="start" method="POST"><button type="submit">Start</button></form>
+        </div>`);
       }
     });
   } else {
@@ -61,14 +86,13 @@ router.get('/profile', function (req, res, next) {
 // if he is not. execute !
       if (error) {
         return next(error);
-      } else {
-        if (user === null) {
+      } else if (user === null) {
           const err = new Error('Not authorized! Go back!');
           err.status = 400;
-          next(err);
-          // return res.render('login');
+          // next(err);
+          return res.render('login');
         } else {
-          // if he is the send him to his profile page !
+          // if he has an active session the send him to his profile page !
           return res.send(`
           <title>My profile</title>
           <link rel="shortcut icon" href="/images/favico.ico" />
@@ -82,10 +106,8 @@ router.get('/profile', function (req, res, next) {
               <form action="start" method="POST"><button type="submit">Start</button></form>
           </div>`);
         }
-      }
     });
 });
-
 
 // GET route for user who wants to visit the start page.
 
@@ -94,15 +116,15 @@ router.get('/start', function (req, res, next) {
     .exec(function (error, user) {
       if (error) {
         return next(error);
-      } else {
-        if (user === null) {
+      } 
+        else if (user === null) {
           const err = new Error('Not authorized! Go back!');
           err.status = 400;
-          return res.render('login');
+          return res.redirect('login');
         } else {
             res.render('start', { title: 'Start Quiz' });
         }
-      }
+      
     });
 });
 
@@ -120,6 +142,14 @@ router.get('/logout', function (req, res, next) {
   }
 });
 
+router.post('/score', (req, res) => {
+  // let ans;
+    console.log(req.body);
+    // ans += req.body;
+    // console.log(ans);
+  res.send('Gratias');
+});
+
 // Routes declaration.. 
 
 router.post('/start', (req, res) => {
@@ -128,7 +158,6 @@ router.post('/start', (req, res) => {
 
 router.get('/login', (req, res) => {
         res.render('login', { title: 'Login'});
-
 });
 
 router.get('/register', (req, res) => {
@@ -136,7 +165,7 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/score', (req, res) => {
-    res.render('score', { title: 'Your Score'});
+    // res.render('score', { title: 'Your Score'});
 }); 
 router.use('/profile', (req, res) => {
   });
