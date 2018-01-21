@@ -45,6 +45,6 @@ app.set('view engine', 'handlebars');
 app.use('/', routes);
 
 // start the app on port 8000 and listen to incoming requests.
-app.listen(3000, function () {
+app.listen(8000, function () {
     console.log('Express app listening on port 8000');
   });
