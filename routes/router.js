@@ -143,11 +143,51 @@ router.get('/logout', function (req, res, next) {
 });
 
 router.post('/score', (req, res) => {
-  // let ans;
-    console.log(req.body);
-    // ans += req.body;
-    // console.log(ans);
+// Scoring is done here, i don't know if this is the right way to do this.
+
+// Declaring asnwers.
+const a = 'abdul'; 
+const b = '15';
+const c = '2';
+const d = 'eating';
+const e = 'vscode';
+const f = 'js';
+const g = 'python';
+const h = 'express';
+const i = 'cool';
+const j = '10';
+
+// Getting passed data to calculate score.
+let json = req.body;
+// this will handle total score
+  let total = 0;
+  // Let the spaghetti code begin !.
+  if (json["answer"]["0"] == a) {
+    total++;
+  } else if(json["answer"]["1"] == b){
+    total++;
+  } else if(json["answer"]["2"] == c){
+    total++;
+  } else if(json["answer"]["3"] == d){
+    total++;
+  } else if(json["answer"]["4"] == e){
+    total++;
+  } else if(json["answer"]["5"] == f){
+    total++;
+  } else if(json["answer"]["6"] == g){
+    total++;
+  } else if(json["answer"]["7"] == h){
+    total++;
+  } else if(json["answer"]["8"] == i){
+    total++;
+  } else if(json["answer"]["9"] == j){
+    total++;
+    console.log(total);
+  }
+  console.log(total);
   res.send('Gratias');
+  console.log(json["answer"]);
+  // console.log(total);
 });
 
 // Routes declaration.. 
