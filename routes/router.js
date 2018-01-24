@@ -12,17 +12,19 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.get('/', function (req, res) {
   res.render('home', { title: 'Home '});
 });
-
+let total = 0;
 //POST route for user registration and  logging in..
 router.post('/profile', function (req, res, next) {
   if (req.body.email &&
     req.body.username &&
-    req.body.password) {
+    req.body.password
+  ) {
 
     const userData = {
       email: req.body.email,
       username: req.body.username,
-      password: req.body.password
+      password: req.body.password,
+      // score: total
     }
 
     // create user from passed data.
@@ -31,18 +33,19 @@ router.post('/profile', function (req, res, next) {
         return next(error);
       } else {
         req.session.userId = user._id;
-        return res.send(`
-        <title>My profile</title>
-        <link rel="shortcut icon" href="/images/favico.ico" />
-        <link rel="stylesheet" href="/css/paper.css" />
-        <div class="paper container">
-            <nav align="right"><a type="button" href="/logout" class="paper-btn">Logout</a></nav>
-            <h4>My Details</h4><b><strong style="font-family: Operator Mono">Name: </strong>` + user.username +  `<br /><br /><strong style="font-family: Operator Mono"> E-Mail: </strong>` + user.email + `<br /><br /></b>
-            <align style="font-family: Operator Mono">Score : </align> ' + user.score + '
-            <hr>
-            <p> Want to take my simple test ? Click the button below to begin !</p>
-            <form action="start" method="POST"><button type="submit">Start</button></form>
-        </div>`);
+        return res.render('profile', { username: user.username, useremail: user.email, userscore: total});
+        // return res.send(`
+        // <title>My profile</title>
+        // <link rel="shortcut icon" href="/images/favico.ico" />
+        // <link rel="stylesheet" href="/css/paper.css" />
+        // <div class="paper container">
+        //     <nav align="right"><a type="button" href="/logout" class="paper-btn">Logout</a></nav>
+        //     <h4>My Details</h4><b><strong style="font-family: Operator Mono">Name: </strong>` + user.username +  `<br /><br /><strong style="font-family: Operator Mono"> E-Mail: </strong>` + user.email + `<br /><br /></b>
+        //     <align style="font-family: Operator Mono">Score : </align> ' + user.score + '
+        //     <hr>
+        //     <p> Want to take my simple test ? Click the button below to begin !</p>
+        //     <form action="start" method="POST"><button type="submit">Start</button></form>
+        // </div>`);
       }
     });
 
@@ -56,18 +59,19 @@ router.post('/profile', function (req, res, next) {
       } else {
         // otherwise if the user is logged in and wants to visit his profile page directly from url argument .
         req.session.userId = user._id;
-        return res.send(`
-        <title>My profile</title>
-        <link rel="shortcut icon" href="/images/favico.ico" />
-        <link rel="stylesheet" href="/css/paper.css" />
-        <div class="paper container">
-            <nav align="right"><a type="button" href="/logout" class="paper-btn">Logout</a></nav>
-            <h4>My Details</h4><b><strong style="font-family: Operator Mono">Name: </strong>` + user.username +  `<br /><br /><strong style="font-family: Operator Mono"> E-Mail: </strong>` + user.email + `<br /><br /></b>
-            <align style="font-family: Operator Mono">Score : </align> ' + user.score + '
-            <hr>
-            <p> Want to take my simple test ? Click the button below to begin !</p>
-            <form action="start" method="POST"><button type="submit">Start</button></form>
-        </div>`);
+        return res.render('profile', { username: user.username, useremail: user.email, userscore: total});
+        // return res.send(`
+        // <title>My profile</title>
+        // <link rel="shortcut icon" href="/images/favico.ico" />
+        // <link rel="stylesheet" href="/css/paper.css" />
+        // <div class="paper container">
+        //     <nav align="right"><a type="button" href="/logout" class="paper-btn">Logout</a></nav>
+        //     <h4>My Details</h4><b><strong style="font-family: Operator Mono">Name: </strong>` + user.username +  `<br /><br /><strong style="font-family: Operator Mono"> E-Mail: </strong>` + user.email + `<br /><br /></b>
+        //     <align style="font-family: Operator Mono">Score : </align> ' + user.score + '
+        //     <hr>
+        //     <p> Want to take my simple test ? Click the button below to begin !</p>
+        //     <form action="start" method="POST"><button type="submit">Start</button></form>
+        // </div>`);
       }
     });
   } else {
@@ -92,19 +96,20 @@ router.get('/profile', function (req, res, next) {
           // next(err);
           return res.render('login');
         } else {
+          return res.render('profile', { username: user.username, useremail: user.email, userscore: total });
           // if he has an active session the send him to his profile page !
-          return res.send(`
-          <title>My profile</title>
-          <link rel="shortcut icon" href="/images/favico.ico" />
-          <link rel="stylesheet" href="/css/paper.css" />
-          <div class="paper container">
-              <nav align="right"><a type="button" href="/logout" class="paper-btn">Logout</a></nav>
-              <h4>My Details</h4><b><strong style="font-family: Operator Mono">Name: </strong>` + user.username +  `<br /><br /><strong style="font-family: Operator Mono"> E-Mail: </strong>` + user.email + `<br /><br /></b>
-              <align style="font-family: Operator Mono">Score : </align> ' + user.score + '
-              <hr>
-              <p> Want to take my simple test ? Click the button below to begin !</p>
-              <form action="start" method="POST"><button type="submit">Start</button></form>
-          </div>`);
+          // return res.send(`
+          // <title>My profile</title>
+          // <link rel="shortcut icon" href="/images/favico.ico" />
+          // <link rel="stylesheet" href="/css/paper.css" />
+          // <div class="paper container">
+          //     <nav align="right"><a type="button" href="/logout" class="paper-btn">Logout</a></nav>
+          //     <h4>My Details</h4><b><strong style="font-family: Operator Mono">Name: </strong>` + user.username +  `<br /><br /><strong style="font-family: Operator Mono"> E-Mail: </strong>` + user.email + `<br /><br /></b>
+          //     <align style="font-family: Operator Mono">Score : </align> ' + user.score + '
+          //     <hr>
+          //     <p> Want to take my simple test ? Click the button below to begin !</p>
+          //     <form action="start" method="POST"><button type="submit">Start</button></form>
+          // </div>`);
         }
     });
 });
@@ -142,10 +147,12 @@ router.get('/logout', function (req, res, next) {
   }
 });
 
-router.post('/score', (req, res) => {
+router.post('/score', (req, res, user) => {
 // Scoring is done here, i don't know if this is the right way to do this.
-
 // Declaring asnwers.
+
+req.session.userId = user._id;
+
 const a = 'abdul'; 
 const b = '15';
 const c = '2';
@@ -160,35 +167,70 @@ const j = '10';
 // Getting passed data to calculate score.
 let json = req.body;
 // this will handle total score
-  let total = 0;
+
   // Let the spaghetti code begin !.
   if (json["answer"]["0"] == a) {
     total++;
-  } else if(json["answer"]["1"] == b){
+  } if(json["answer"]["1"] == b){
     total++;
-  } else if(json["answer"]["2"] == c){
+  } if(json["answer"]["2"] == c){
     total++;
-  } else if(json["answer"]["3"] == d){
+  } if(json["answer"]["3"] == d){
     total++;
-  } else if(json["answer"]["4"] == e){
+  } if(json["answer"]["4"] == e){
     total++;
-  } else if(json["answer"]["5"] == f){
+  } if(json["answer"]["5"] == f){
     total++;
-  } else if(json["answer"]["6"] == g){
+  }  if(json["answer"]["6"] == g){
     total++;
-  } else if(json["answer"]["7"] == h){
+  } if(json["answer"]["7"] == h){
     total++;
-  } else if(json["answer"]["8"] == i){
+  } if(json["answer"]["8"] == i){
     total++;
-  } else if(json["answer"]["9"] == j){
+  } if(json["answer"]["9"] == j){
     total++;
-    console.log(total);
+  } else {
+    // console.log('Looser');
   }
+  let total2 = total;
+  total2 += total;
   console.log(total);
-  res.send('Gratias');
-  console.log(json["answer"]);
+  // res.send('Gratias, Your score is ' + total + '');
+  res.render('score', { body: total });
+  const scoreData = {
+  score: total2
+}
+if (req.session.userId = user._id){
+  User.create(scoreData);
+}
+
+  console.log(req.body);
+  // User.findOneAndUpdate({'score':User.findById(user._id)}, {$set:{score:total2}});
+  // User.update({ email: user.email}, {$set: {score: total2}})
+  User.update(scoreData);
+  // console.log(json["answer"]);
   // console.log(total);
 });
+
+// Get route for score page.
+router.get('/score', function (req, res, next) {
+// check if the user is logged in by checking session id.
+  User.findById(req.session.userId)
+    .exec(function (error, user) {
+// if he is not. execute !
+      if (error) {
+        return next(error);
+      } else if (user === null) {
+          const err = new Error('Not authorized! Go back!');
+          err.status = 400;
+          // next(err);
+          return res.render('login');
+        } else {
+            return res.render('score');
+        }
+    });
+});
+
 
 // Routes declaration.. 
 
@@ -204,10 +246,12 @@ router.get('/register', (req, res) => {
     res.render('register', { title: 'Registration'});
 });
 
-router.post('/score', (req, res) => {
-    // res.render('score', { title: 'Your Score'});
-}); 
+// router.post('/score', (req, res) => {
+//   res.render('score', { body: total });
+//     // res.render('score', { title: 'Your Score'});
+// }); 
 router.use('/profile', (req, res) => {
+    res.render('profile', { username: user.username, useremail: user.email, userscore: total, userpass: user.password });   
   });
 
 router.post('/confirm', (req, res) => {
