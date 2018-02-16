@@ -27,6 +27,7 @@
     "get-form-data": "^2.0.0",
     "mongoose": "^5.0.0-rc0",
     "multer": "^1.3.0",
-    "nodemon": "^1.14.7"
+    "nodemon": "^1.14.7",
+    "type-reverse": "^1.0.0"
   }
 }

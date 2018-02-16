@@ -1,0 +1,29 @@
+.a {
+    -ms-flex-item-align: center;
+    align-self: center;
+    background: 0 0;
+    -webkit-transition: all .5s ease, background-color .1s ease;
+    transition: all .5s ease, background-color .1s ease;
+    color: #41403e;
+    display: inline-block;
+    outline: 0;
+    border: solid 1px #41403e;
+    border: 1px solid #41403e;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: Operator Mono;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: .5rem .5rem;
+    cursor: pointer;
+    -webkit-box-shadow: 15px 28px 25px -18px rgba(0, 0, 0, .2);
+    box-shadow: 15px 28px 25px -18px rgba(0, 0, 0, .2);
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+    position: relative;
+}
+
+header {
+    width: 100%;
+    position: fixed;
+}
