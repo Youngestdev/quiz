@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 const User = require('../models/user');
 
+
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
     extended: true
@@ -186,6 +187,8 @@ router.post('/score', (req, res, next) => {
         score: total2
     });
     console.log(req.body);
+    let score = total2;
+    
 });
 
 // Get route for score page.
@@ -208,7 +211,6 @@ router.get('/score', function(req, res, next) {
             }
         });
 });
-
 
 // Routes declaration.. 
 

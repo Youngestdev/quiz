@@ -12,7 +12,7 @@ const app = express();
 app.use(express.static(__dirname + '/public'));
 
 // connect to mongodb
-mongoose.connect('mongodb://localhost/abdul', {
+mongoose.connect('mongodb://abdul:12azeez451@ds245478.mlab.com:45478/niceblog', {
     useMongoClient: true
 });
 
