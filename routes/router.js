@@ -17,7 +17,7 @@ router.get("/", function(req, res) {
     });
 });
 //POST route for user registration and  logging in..
-router.post("/profile", function(req, res, next) {
+router.post("/profile", (req, res, next) => {
     if (req.body.email &&
         req.body.username &&
         req.body.password
@@ -125,6 +125,33 @@ router.get("/logout", (req, res, next) => {
         });
     }
 });
+
+// Lets fix a reset password route here..
+
+router.get("/reset/:userID", (req, res, next) => {
+    User.findById(req.params.userID)
+        .exec((error, user) => {
+            if (error) {
+                return next(error)
+            } else if (user === null) {
+                const err = new Error("Well, you shouldn't be here !")
+                err.status = 404;
+                return res.render("home")
+            } else {
+                return res.render("resetpass", {
+                    user_email: user.email
+                })
+            }
+        })
+})
+
+router.post("/reset", (req, res, next) => {
+    
+})
+
+// router.post("/passreset", (req, res, next) => {
+//     if (req.body.password)
+// })
 
 router.post("/score", (req, res, next) => {
     let total = 0;
