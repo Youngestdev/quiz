@@ -127,7 +127,7 @@ router.get("/logout", (req, res, next) => {
 });
 
 router.post("/score", (req, res, next) => {
-
+    let total = 0;
     // req.session.userId = user._id;
 
     // Probably this should have been in JSON format ...
