@@ -31,7 +31,7 @@ npm run start
 
 ### Setting up MONGODB details
 
-I believe you have `mongodb` installed if not, visit [here for installation details]()
+I believe you have `mongodb` installed if not, visit [here for installation details](https://docs.mongodb.com/manual/installation/)
 
 Setup your mongodb database connection details by first, creating a folder where mongodb will store it's files and create an instance of mongo :
 
