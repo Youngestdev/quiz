@@ -41,6 +41,11 @@ $> mkdir database & mongod --dbpath database
 
 And, we're ready to run your app fully.
 
+### ToDo
+
++ Password Reset Functionality
++ A better question retrieval and confirmation system
+
 ### Licence
 
 MIT, Abdulazeez.
