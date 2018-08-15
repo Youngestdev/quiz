@@ -1,3 +1,8 @@
 <title>{{ title }}</title>
-<b>Wrong Email or Password/b> Click on the home link above to return back to the home page.
-    <hr>
+<b>Wrong Email or Password</b> You'll be redirected back to the page in <strong>2</strong> seconds.
+
+<script>
+    window.setTimeout(() => {
+        window.location = "/login"
+    }, 2000)
+</script>

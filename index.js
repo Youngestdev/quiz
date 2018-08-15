@@ -12,7 +12,9 @@ const app = express();
 app.use(express.static(__dirname + '/public'));
 
 // connect to mongodb. I know this isn't safe..
-mongoose.connect('mongodb://abdul:12azeez451@ds245478.mlab.com:45478/niceblog');
+mongoose.connect('mongodb://127.0.0.1:27017/quiz', {
+    useNewUrlParser: true
+});
 
 const db = mongoose.connection;
 
