@@ -11,8 +11,8 @@ const app = express();
 // setting static directory where  css, images and side-javascript codes are going to be kept 
 app.use(express.static(__dirname + '/public'));
 
-// connect to mongodb
-mongoose.connect('mongodb://127.0.0.1:27017/quiz');
+// connect to mongodb. I know this isn't safe..
+mongoose.connect('mongodb://abdul:12azeez451@ds245478.mlab.com:45478/niceblog');
 
 const db = mongoose.connection;
 
