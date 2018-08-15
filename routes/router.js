@@ -58,7 +58,7 @@ router.post('/profile', function(req, res, next) {
                 return res.render('profile', {
                     username: user.username,
                     useremail: user.email,
-                    userscore: total
+                    userscore: user.score
                 });
             }
         });
@@ -87,7 +87,7 @@ router.get('/profile', function(req, res, next) {
                 return res.render('profile', {
                     username: user.username ,
                     useremail: user.email,
-                    userscore: total
+                    userscore: user.score
                 });
             }
         });
@@ -186,9 +186,11 @@ router.post('/score', (req, res, next) => {
     res.render('score', {
         score: total2
     });
-    console.log(req.body);
-    let score = total2;
-    
+    User.findByIdAndUpdate(req.session.userId, { score: total2 }, (err, user) => {
+        if (err) throw err;
+        console.log('USer Updated !')
+    })
+    console.log(req.body); 
 });
 
 // Get route for score page.
@@ -206,7 +208,7 @@ router.get('/score', function(req, res, next) {
                 return res.render('login');
             } else {
                 return res.render('score', {
-                    score: total
+                    score: user.score
                 });
             }
         });
