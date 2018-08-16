@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const router = express.Router();
 const User = require("../models/user");
-
+const nodemailer = require("nodemailer")
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
@@ -128,6 +128,39 @@ router.get("/logout", (req, res, next) => {
 
 // Lets fix a reset password route here..
 
+router.get("reset_pass", (req, res) => {
+    res.render("reset_pass")
+})
+
+router.post("reset_pass", (req, res) => {
+    // Probably, this shouldn't be here.
+    User.findById(req.body.email, (req, res) => {
+        return user._id
+    
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: '',
+            pass: ''
+        }
+    })
+    
+    
+    const mailOptions = {
+        from: 'demo@demo.com',
+        to: user.email,
+        subject: 'Password retrieval',
+        html: '<p>Click the link below to reset your password</p> https://127.0.0.1:8000/reset/'+user._id+''
+    }
+    transporter.sendMail(mailOptions, (err, info) => {
+        if(err)
+          console.log(err)
+        else
+          console.log(info);
+     });
+    })
+})
+
 router.get("/reset/:userID", (req, res, next) => {
     User.findById(req.params.userID)
         .exec((error, user) => {
@@ -239,6 +272,14 @@ router.get("/score", (req, res, next) => {
 });
 
 // Routes declaration.. 
+
+router.use("/reset_pass", (req, res) => {
+    res.render("reset_pass", {
+        title: "Reset Password"
+    });
+});
+
+
 
 router.post("/start", (req, res) => {
     res.render("start", {
