@@ -23,7 +23,7 @@
     "connect-mongo": "^2.0.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.2",
-    "express-handlebars": "^3.0.0",
+    "express-handlebars": "^5.3.1",
     "express-session": "^1.15.6",
     "get-form-data": "^2.0.0",
     "mongoose": "^5.2.8",
